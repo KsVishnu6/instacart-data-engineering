@@ -45,9 +45,9 @@ Databricks SQL Warehouse
 
 ## Data Sources
 
-The project uses the **Instacart Market Basket Analysis** dataset, which contains customer order history and product information used to analyse purchasing and reordering behaviour.
+The project uses the **Instacart Online Grocery Shopping Dataset 2017**, which contains customer order history and product information used to analyse purchasing and reordering behaviour.
 
-Source: Kaggle — Instacart Market Basket Analysis
+Source: [Zenodo — Instacart Online Grocery Shopping Dataset 2017](https://zenodo.org/records/2654444)
 
 ### Source Tables
 
