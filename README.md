@@ -110,7 +110,6 @@ The checks include:
 - ID and numeric value validation
 - Valid range checks for order day and order hour
 - Validation of categorical values such as `eval_set` and `reordered`
-- Referential integrity checks for related data
 
 Critical data quality failures stop the pipeline rather than allowing invalid data to continue to the Gold layer.
 
