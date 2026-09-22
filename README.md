@@ -80,6 +80,19 @@ The reference data is processed separately through the reference Databricks note
 
 After the transaction files are copied, the NB_Get_COUNT Databricks notebook checks whether transaction data already exists in the Bronze layer. The result is passed back to ADF and used by an If Condition to determine whether the pipeline should execute the Initial Load or Incremental Load process. Based on this, Databricks processes the data through the Bronze, Silver, and Gold layers, with the Silver layer performing data quality checks and validation, and the Gold layer applying business logic and dimensional data modelling.
 
+## Bronze Layer
+
+The Bronze layer stores the raw source data ingested from Azure Data Lake Storage Gen2 using Azure Databricks.
+
+The data is loaded into Delta tables with minimal transformation so that the original source data is preserved for downstream processing.
+
+The Bronze layer contains:
+
+- `instacart.bronze.orders`
+- `instacart.bronze.products`
+- `instacart.bronze.aisles`
+- `instacart.bronze.departments`
+- `instacart.bronze.order_products_prior`
 
 
 
