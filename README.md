@@ -41,6 +41,31 @@ Databricks SQL Warehouse
 - **Databricks SQL Warehouse** — SQL-based analytical querying of Gold tables
 - **Azure Key Vault** — Secure storage of credentials and secrets
 
+## Data Sources
+
+The project uses the **Instacart Market Basket Analysis** dataset, which contains customer order history and product information used to analyse purchasing and reordering behaviour.
+
+Source: Kaggle — Instacart Market Basket Analysis
+
+### Source Tables
+
+
+- **orders.csv** — Contains customer order-level information, including order timing, order sequence, and time since the previous order.  
+  **3,421,083 rows, 7 columns**
+
+- **products.csv** — Contains product details and the aisle and department each product belongs to.  
+  **49,688 rows, 4 columns**
+
+- **aisles.csv** — Reference table containing aisle names.  
+  **134 rows, 2 columns**
+
+- **departments.csv** — Reference table containing department names.  
+  **21 rows, 2 columns**
+
+- **order_products__prior.csv** — Contains the products purchased in customers' prior orders, including cart position and whether the product was reordered.  
+  **32,434,489 rows, 4 columns**
+
+
 
 
 
