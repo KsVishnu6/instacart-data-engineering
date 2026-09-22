@@ -10,25 +10,27 @@ The project also implements incremental processing using an order ID watermark, 
 
 ## Architecture
 
+### Architecture
+
+```text
 Source CSV Files
-      ↓
+↓
 Azure Blob Storage
-      ↓
+↓
 Azure Data Factory
-      ↓
+↓
 Azure Data Lake Storage Gen2
-      ↓
+↓
 Azure Databricks
-      ↓
+↓
 Bronze Layer
-      ↓
-Silver Layer
-(Data Quality & Validation)
-      ↓
-Gold Layer
-(Star Schema)
-      ↓
+↓
+Silver Layer (Data Quality & Validation)
+↓
+Gold Layer (Star Schema)
+↓
 Databricks SQL Warehouse
+```
 
 ## Technologies Used
 
