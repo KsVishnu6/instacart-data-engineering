@@ -94,6 +94,99 @@ The Bronze layer contains:
 - `instacart.bronze.departments`
 - `instacart.bronze.order_products_prior`
 
+## Silver Layer & Data Quality
+
+The Silver layer contains validated and cleaned data from the Bronze layer.
+
+Before data is written to Silver, data quality checks are performed to identify invalid or inconsistent records.
+
+The checks include:
+
+- Required NULL checks
+- Duplicate record checks
+- Data type validation
+- ID and numeric value validation
+- Valid range checks for order day and order hour
+- Validation of categorical values such as `eval_set` and `reordered`
+- Referential integrity checks for related data
+
+Critical data quality failures stop the pipeline rather than allowing invalid data to continue to the Gold layer.
+
+The validated data is then written to the following Silver tables:
+
+- `instacart.silver.orders`
+- `instacart.silver.products`
+- `instacart.silver.aisles`
+- `instacart.silver.departments`
+- `instacart.silver.order_products_prior`
+
+
+## Gold Layer & Data Modelling
+
+The Gold layer contains business-ready data modelled using a star schema.
+
+The central fact table is maintained at **order-product grain**, where each row represents one product within an order.
+
+### Fact Table
+
+- `instacart.gold.fact_order_products` — Contains order-product level transactional data used for analytical queries.
+
+### Dimension Tables
+
+- `instacart.gold.dim_product` — Contains product details and product hierarchy information.
+- `instacart.gold.dim_aisle` — Contains aisle reference information.
+- `instacart.gold.dim_department` — Contains department reference information.
+
+The fact table is linked to the dimension tables using product, aisle, and department keys.
+
+## Databricks SQL Warehouse
+
+The Gold tables are exposed through Databricks SQL Warehouse for analytical SQL querying.
+
+The warehouse provides a dedicated SQL serving layer for the Gold dimensional model and can be used by downstream analytics and reporting tools.
+
+
+## Incremental Processing
+
+The pipeline uses an `order_id` watermark to identify and process newly arrived transaction data.
+
+The current maximum `order_id` is compared with the previously stored watermark. Only records with an `order_id` greater than the stored watermark are processed during an incremental run.
+
+The watermark is updated only after the transaction processing completes successfully.
+
+This prevents previously processed records from being reprocessed on subsequent pipeline runs.
+
+
+
+## Error Handling & Monitoring
+
+The pipeline is designed to stop when critical data quality issues are detected rather than allowing invalid data to continue to the Gold layer.
+
+ADF activity retry policies are used to handle temporary failures, and pipeline failure alerts are configured to notify when a pipeline run fails.
+
+The pipeline also uses watermark control to ensure that the watermark is updated only after successful processing.
+
+
+## Security & Credentials
+
+Azure Key Vault is used to securely store credentials used by Azure Data Factory.
+
+ADF accesses the required secrets through its managed identity rather than storing credentials directly in the pipeline or linked services.
+
+The project uses Unity Catalog for data governance and table management. Databricks accesses ADLS Gen2 through an Azure Access Connector managed identity with Azure RBAC permissions.
+
+
+## Testing
+
+The pipeline was tested for both initial and incremental processing.
+
+- **Initial load:** Verified that the full historical dataset is loaded into the Bronze, Silver, and Gold layers.
+- **Incremental load:** Added new transaction records and verified that only the new records were processed.
+- **Watermark validation:** Verified that the watermark is updated to the latest processed `order_id` only after successful processing.
+- **Data quality validation:** Verified that critical data quality failures stop the pipeline before invalid data reaches the Gold layer.
+- **No-new-data scenario:** Verified that an incremental run stops when no records are newer than the current watermark.
+
+
 
 
 
