@@ -65,6 +65,21 @@ Source: Kaggle — Instacart Market Basket Analysis
 - **order_products__prior.csv** — Contains the products purchased in customers' prior orders, including cart position and whether the product was reordered.  
   **32,434,489 rows, 4 columns**
 
+## ADF Orchestration
+
+Azure Data Factory is used to orchestrate the ingestion and processing workflow.
+
+The pipeline first retrieves the available source files and uses Filter activities to separate them into two paths:
+
+- **Transaction path** — `orders.csv` and `order_products__prior.csv`
+- **Reference path** — `products.csv`, `aisles.csv`, and `departments.csv`
+
+For both paths, ForEach activities process the files dynamically and copy them from Azure Blob Storage into ADLS Gen2.
+
+The reference data is processed separately through the reference Databricks notebook.
+
+After the transaction files are copied, the NB_Get_COUNT Databricks notebook checks whether transaction data already exists in the Bronze layer. The result is passed back to ADF and used by an If Condition to determine whether the pipeline should execute the Initial Load or Incremental Load process. Based on this, Databricks processes the data through the Bronze, Silver, and Gold layers, with the Silver layer performing data quality checks and validation, and the Gold layer applying business logic and dimensional data modelling.
+
 
 
 
