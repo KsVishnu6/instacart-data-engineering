@@ -1,4 +1,4 @@
-# instacart-data-engineering
+<img width="1470" height="956" alt="image" src="https://github.com/user-attachments/assets/61a0f86a-a0fa-4071-a947-29932190a070" /># instacart-data-engineering
 End-to-end Azure data engineering pipeline using ADF, ADLS Gen2, Databricks, Delta Lake, Unity Catalog, and Databricks SQL Warehouse.
 
 
@@ -34,9 +34,17 @@ Gold Layer
 (Star Schema)
       ↓
 Databricks SQL Warehouse
+<ul>
+<li><strong>Azure Data Factory (ADF)</strong> – Data ingestion, orchestration, scheduling, retries, and failure handling</li>
+<li><strong>Azure Data Lake Storage Gen2 (ADLS Gen2)</strong> – Raw data storage</li>
+<li><strong>Azure Blob Storage</strong> – Source file storage</li>
+<li><strong>Azure Databricks</strong> – Data processing and transformation</li>
+<li><strong>Delta Lake</strong> – Storage format for Bronze, Silver, and Gold tables</li>
+<li><strong>Unity Catalog</strong> – Data governance and table management</li>
+<li><strong>Databricks SQL Warehouse</strong> – SQL-based analytical querying of Gold tables</li>
+<li><strong>Azure Key Vault</strong> – Secure storage of credentials and secrets</li>
+</ul>
    
-   
-
 ## Technologies Used
 
 - **Azure Data Factory (ADF)** — Data ingestion, orchestration, scheduling, retries, and failure handling
