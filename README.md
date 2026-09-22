@@ -8,3 +8,25 @@ The Gold layer uses a dimensional model consisting of a fact table and dimension
 
 The project also implements incremental processing using an order ID watermark, data quality checks, Azure Key Vault for credential management, and ADF retry and failure-alert mechanisms.
 
+## Architecture
+
+
+Source CSV Files
+      ↓
+Azure Blob Storage
+      ↓
+Azure Data Factory
+      ↓
+Azure Data Lake Storage Gen2
+      ↓
+Azure Databricks
+      ↓
+Bronze Layer
+      ↓
+Silver Layer
+(Data Quality & Validation)
+      ↓
+Gold Layer
+(Star Schema)
+      ↓
+Databricks SQL Warehouse
