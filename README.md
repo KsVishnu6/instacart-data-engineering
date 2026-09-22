@@ -10,7 +10,6 @@ The project also implements incremental processing using an order ID watermark, 
 
 ## Architecture
 
-
 Source CSV Files
       ↓
 Azure Blob Storage
